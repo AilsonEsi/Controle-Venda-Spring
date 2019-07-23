@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/main.html}"
+      lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Fornecedor</title>
+
+    </head>
+
+    <div layout:fragment="content">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">NIB</label>
+                    <input type="number" class="form-control" id="inputEmail4" placeholder="Identificação bancaria">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Nome</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="Nome">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Email</label>
+                    <input type="email" class="form-control" id="inputPassword4" placeholder="abc@exemplo.com">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Descrição</label>
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Descrição">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Telefone</label>
+                    <input type="number" class="form-control" id="inputEmail4" pattern="^\d*" placeholder="Telefone">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Endereço</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Cidade</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Codigo Postal</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="validationTextarea">Observação</label>
+                <!--is-valid-->
+                <textarea class="form-control" id="validationTextarea" placeholder="Opcional" required></textarea>
+                <div class="invalid-feedback">
+                    Opcional
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+
+</html>
