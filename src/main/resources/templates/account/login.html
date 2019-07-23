@@ -13,7 +13,7 @@
 
         <!-- Custom fonts for this template-->
         <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template-->
         <link th:href="@{css/sb-admin.css}" rel="stylesheet">
 
@@ -25,16 +25,16 @@
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form>
+                    <form action="/login" method="POST">
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                                <label for="inputEmail">Email address</label>
+                                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+                                <label for="inputEmail">Email</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
                                 <label for="inputPassword">Password</label>
                             </div>
                         </div>
@@ -42,15 +42,20 @@
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" value="remember-me">
-                                    Remember Password
+                                    Lembrar a senha
                                 </label>
                             </div>
                         </div>
-                        <a class="btn btn-primary btn-block" href="index.html">Login</a>
+                        <input type="submit" value="Login" class="btn btn-primary btn-block">
                     </form>
                     <div class="text-center">
-<!--                        <a class="d-block small mt-3" href="/registar">Crie uma nova conta</a>-->
+                        <!--                        <a class="d-block small mt-3" href="/registar">Crie uma nova conta</a>-->
                         <a class="d-block small" href="forgot-password.html">Esqueceu a senha?</a>
+                    </div>
+                    <div class="form-group mt-5" th:if="${param.error}">
+                        <div class="alert alert-danger text-center" role="alert">
+                            Email ou senha incorreta, tente novamente.
+                        </div>
                     </div>
                 </div>
             </div>

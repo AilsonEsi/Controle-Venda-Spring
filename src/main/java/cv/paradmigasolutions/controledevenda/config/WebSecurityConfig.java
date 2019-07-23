@@ -30,54 +30,62 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration //add after
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-//
-//    @Autowired
-//    private DataSource dataSource;
-//
-//    @Value("${spring.queries.users-query}")
-//    private String userQuery;
-//
-//    @Value("${spring.queries.roles-query}")
-//    private String roleQuery;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        auth
-//                .jdbcAuthentication()
-//                .usersByUsernameQuery(userQuery)
-//                .authoritiesByUsernameQuery(roleQuery)
-//                .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder);
-//    }
+    @Autowired
+    private DataSource dataSource;
+
+    @Value("${spring.queries.users-query}")
+    private String userQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String roleQuery;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth
+                .jdbcAuthentication()
+                .usersByUsernameQuery(userQuery)
+                .authoritiesByUsernameQuery(roleQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf()
                 .and().cors().disable();
-                
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/registration").permitAll()
-//                .anyRequest()
-//                    .authenticated()
-//                        .and().csrf().disable()
-//                    .formLogin()
-//                        .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
-//                        .usernameParameter("email").passwordParameter("senha")
-//                    .and().logout()
-//                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+
+        http
+                .authorizeRequests()
+                .antMatchers("/login*").permitAll()
+                .antMatchers("/registration").permitAll()
+                .anyRequest()
+                    .authenticated()
+                        .and().csrf().disable()
+                .formLogin()
+                    .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
+                    .usernameParameter("email").passwordParameter("password")
+                .and()
+                    .logout()
+                    .deleteCookies("remove")
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login")
+                    .invalidateHttpSession(true);
     }
-//
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/webjars/**");
-//    }
-    
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/webjars/**")
+                .antMatchers("/css/**")
+                .antMatchers("/vendor/**");
+    }
+
+    /*
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -89,5 +97,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-     
+     */
 }
