@@ -7,11 +7,12 @@ package cv.paradmigasolutions.controledevenda.controllers;
 
 import cv.paradmigasolutions.controledevenda.model.Fornecedor;
 import cv.paradmigasolutions.controledevenda.services.FornecedorService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -33,10 +34,17 @@ public class FornecedorController {
     }
 
     @PostMapping(value = "/fornecedor")
-    public String save(Fornecedor fornecedor) {
-
-        fornecedorService.save(fornecedor);
-        return "/home/fornecedor";
+    public ModelAndView save(@Valid Fornecedor fornecedor, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors()) {
+            mv.setViewName("/home/fornecedor");
+            mv.addObject("fornecedor", fornecedor);
+        } else {
+            mv.setViewName("redirect:/fornecedor");
+            
+            fornecedorService.save(fornecedor);
+        }
+        return mv;
 
     }
 

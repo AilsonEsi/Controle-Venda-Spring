@@ -7,6 +7,8 @@ package cv.paradmigasolutions.controledevenda.services;
 
 import cv.paradmigasolutions.controledevenda.model.Fornecedor;
 import cv.paradmigasolutions.controledevenda.repository.FornecedorRepository;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,12 @@ public class FornecedorService {
 
     public void save(Fornecedor fornecedor) {
 
+        if (fornecedor.getCreatedAt() == null) {
+            fornecedor.setCreatedAt(new Date());
+        }
+        if (fornecedor.getUpdatedAt() == null) {
+            fornecedor.setUpdatedAt(new Date());
+        }
         fornecedorRepository.save(fornecedor);
     }
 }

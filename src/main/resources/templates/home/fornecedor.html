@@ -17,59 +17,84 @@
     </head>
 
     <div layout:fragment="content">
-        <form action="/fornecedor" method="POST" th:object="${fornecedor}">
+        <form th:action="@{/fornecedor}" method="POST" th:object="${fornecedor}">
             <div class="form-row">
                 <div class="form-group col-md-6">
+                    <label for="inputEmail4">NIF</label>
+                    <input th:field="*{nif}" type="number" class="form-control" id="nif" placeholder="Identificação fiscal">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nif')}">
+                        <label th:errors="*{nif}" class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
                     <label for="inputEmail4">NIB</label>
-                    <input th:field="*{nib}" type="number" class="form-control" id="inputEmail4" placeholder="Identificação bancaria">
+                    <input th:field="*{nib}" type="number" class="form-control" id="nib" placeholder="Identificação bancaria">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nib')}">
+                        <label th:errors="*{nib}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Nome</label>
-                    <input th:field="*{name}" type="text" class="form-control" id="inputEmail4" placeholder="Nome">
+                    <input th:field="*{name}" maxlength="50" type="text" class="form-control" id="name" placeholder="Nome">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('name')}">
+                        <label th:errors="*{name}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Email</label>
-                    <input th:field="*{email}" type="email" class="form-control" id="inputPassword4" placeholder="abc@exemplo.com">
+                    <input th:field="*{email}" maxlength="50" type="email" class="form-control" id="email" placeholder="abc@exemplo.com">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}">
+                        <label th:errors="*{email}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Descrição</label>
-                    <input th:field="*{description}" type="text" class="form-control" id="inputPassword4" placeholder="Descrição">
+                    <input th:field="*{description}" maxlength="50" type="text" class="form-control" id="description" placeholder="Descrição">
+                     <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('description')}">
+                        <label th:errors="*{description}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Telefone</label>
-                    <input th:field="*{phone}" type="number" class="form-control" id="inputEmail4" pattern="^\d*" placeholder="Telefone">
+                    <input th:field="*{phone}" type="number" class="form-control" id="phone" pattern="^\d*" placeholder="Telefone">
+                     <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('phone')}">
+                        <label th:errors="*{phone}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Endereço</label>
-                    <input th:field="*{address}" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <input th:field="*{address}" maxlength="100" type="text" class="form-control" id="address" placeholder="1234 Main St">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('address')}">
+                        <label th:errors="*{address}" class="validation-message"></label>
+                    </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Cidade</label>
-                    <input th:field="*{city}" type="text" class="form-control" id="inputCity">
+                    <input th:field="*{city}" maxlength="50" type="text" class="form-control" id="city">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('city')}">
+                        <label th:errors="*{city}" class="validation-message"></label>
+                    </div>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip">Codigo Postal</label>
-                    <input th:field="*{zip}" type="number" class="form-control" id="inputZip">
+                    <input th:field="*{zip}" type="number" class="form-control" id="zip">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('zip')}">
+                        <label th:errors="*{zip}" class="validation-message"></label>
+                    </div>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="validationTextarea">Observação</label>
                 <!--is-valid-->
-                <textarea th:field="*{obs}" class="form-control" id="validationTextarea" placeholder="Opcional"></textarea>
+                <textarea th:field="*{obs}" maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
                 <div class="invalid-feedback">
                     Opcional
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Check me out
-                    </label>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('obs')}">
+                    <label th:errors="*{obs}" class="validation-message"></label>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
