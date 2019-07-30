@@ -12,12 +12,12 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Fornecedor</title>
+        <title th:text="${title}"></title>
 
     </head>
 
     <div layout:fragment="content">
-        <form th:action="@{/fornecedor}" method="POST" th:object="${fornecedor}">
+        <form th:action="@{/fornecedor/cadastro}" method="POST" th:object="${fornecedor}">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">NIF</label>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Email</label>
-                    <input th:field="*{email}" maxlength="50" type="email" class="form-control" id="email" placeholder="abc@exemplo.com">
+                    <input th:field="*{email}" maxlength="50" type="text" class="form-control" id="email" placeholder="abc@exemplo.com">
                     <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}">
                         <label th:errors="*{email}" class="validation-message"></label>
                     </div>

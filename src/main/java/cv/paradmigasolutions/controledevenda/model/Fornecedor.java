@@ -14,10 +14,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 /**
  *
@@ -43,12 +45,13 @@ public class Fornecedor extends AudityModel<String> implements Serializable{
 
     @NotNull(message = "Nome nao pode ser nulo")
     @NotBlank(message = "Nome e obrigatorio")
-    @Column(name = "fn_name", nullable = false, length = 50)
+    @Column(name = "fn_name", nullable = false, unique = true, length = 50)
     private String name;
 
     @Column(name = "fn_email", nullable = false, unique = true, length = 50)
     @NotNull(message = "Email nao pode ser nulo")
     @NotBlank(message = "Email e obrigatorio")
+    @Email(message = "Este e-mail e invalido")
     private String email;
 
     @Column(name = "fn_description", nullable = false, length = 50)
@@ -56,7 +59,7 @@ public class Fornecedor extends AudityModel<String> implements Serializable{
 
     @NotNull(message = "Telefone nao pode ser nulo")
     @NotBlank(message = "Telefone e obrigatorio")
-    @Column(name = "fn_phone", nullable = false)
+    @Column(name = "fn_phone", nullable = false, unique = true)
     private String phone;
 
     @NotNull(message = "Codigo postal nao pode ser nulo")

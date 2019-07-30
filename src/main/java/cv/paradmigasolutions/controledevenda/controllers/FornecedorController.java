@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -20,28 +21,30 @@ import org.springframework.web.servlet.ModelAndView;
  * @author programmer
  */
 @Controller
+@RequestMapping(value = "fornecedor")
 public class FornecedorController {
 
     @Autowired
     private FornecedorService fornecedorService;
 
-    @GetMapping(value = "/fornecedor")
+    @GetMapping(value = "/cadastro")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("home/fornecedor");
+        mv.setViewName("home/fornecedor/cadastro");
         mv.addObject("fornecedor", new Fornecedor());
+        mv.addObject("title", "Cadastro de fornecedor");
         return mv;
     }
 
-    @PostMapping(value = "/fornecedor")
+    @PostMapping(value = "/cadastro")
     public ModelAndView save(@Valid Fornecedor fornecedor, BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors()) {
-            mv.setViewName("/home/fornecedor");
+            mv.setViewName("/home/fornecedor/cadastro");
             mv.addObject("fornecedor", fornecedor);
         } else {
-            mv.setViewName("redirect:/fornecedor");
-            
+            mv.setViewName("redirect:/fornecedor/cadastro");
+
             fornecedorService.save(fornecedor);
         }
         return mv;
