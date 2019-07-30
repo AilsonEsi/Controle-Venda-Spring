@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  
+<html 
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"  
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{layouts/main.html}"
-      lang="en">
+      layout:decorator="~{layouts/main.html}">
 
     <head>
 
@@ -12,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin - Dashboard</title>
+        <title th:text="${appName}"></title>
 
     </head>
 
