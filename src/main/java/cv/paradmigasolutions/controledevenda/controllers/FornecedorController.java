@@ -39,6 +39,7 @@ public class FornecedorController {
     @PostMapping(value = "/cadastro")
     public ModelAndView save(@Valid Fornecedor fornecedor, BindingResult result) {
         ModelAndView mv = new ModelAndView();
+        mv.addObject("title", "Cadastro de fornecedor");
         if (result.hasErrors()) {
             mv.setViewName("/home/fornecedor/cadastro");
             mv.addObject("fornecedor", fornecedor);
