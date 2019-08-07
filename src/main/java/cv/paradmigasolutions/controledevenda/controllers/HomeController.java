@@ -29,7 +29,7 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home/home");
         mv.addObject("appName", appName);
-        Authentication auth = (Authentication) principal;
+        //Authentication auth = (Authentication) principal;
         //System.out.println(auth.getAuthorities());
         return mv;
     }

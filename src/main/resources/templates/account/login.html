@@ -28,8 +28,8 @@
                     <form th:action="@{/login}" method="POST">
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                                <label for="inputEmail">Email</label>
+                                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Usuario" required="required" autofocus="autofocus">
+                                <label for="inputEmail">Usuario</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="remember-me">
+                                    <input type="checkbox" name="remember-me">
                                     Lembrar a senha
                                 </label>
                             </div>
