@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AccountController {
 
+    /*
     @GetMapping(value = "/login")
     public String login(HttpServletRequest request) {
         if (request.getUserPrincipal() == null) {
@@ -32,4 +33,5 @@ public class AccountController {
 
         return "account/signup";
     }
+*/
 }

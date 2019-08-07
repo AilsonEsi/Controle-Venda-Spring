@@ -7,19 +7,28 @@ package cv.paradmigasolutions.controledevenda.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 /**
  *
  * @author programmer
  */
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer{
-    
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("account/login");
+        //registry.addViewController("/home").setViewName("userhome");
+        //registry.addViewController("/admin/home").setViewName("adminhome");
+        registry.addViewController("/403").setViewName("403");
+        registry.addViewController("/404").setViewName("404");
+    }
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder;
+    public SpringSecurityDialect securityDialect() {
+        return new SpringSecurityDialect();
     }
 }

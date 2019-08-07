@@ -5,13 +5,17 @@
  */
 package cv.paradmigasolutions.controledevenda.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import lombok.Data;
 import lombok.ToString;
 
 /**
@@ -19,32 +23,26 @@ import lombok.ToString;
  * @author programmer
  */
 @Entity(name = "usr_users")
-@Getter
-@Setter
+@Data
 @ToString
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_id")
     private Integer id;
+    @Column(name = "usr_username", nullable=false, length = 50)
+    private String username;
     @Column(name = "usr_email", nullable = false)
     private String email;
     @Column(name = "usr_password", nullable = false)
     private String password;
-    @Column(name = "usr_role",nullable = false)
-    private String role;
-
-    public User(Integer id, String email, String password, String role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String email, String password, String role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "usr_role",
+            joinColumns = {
+                @JoinColumn(name = "USER_ID", referencedColumnName = "USR_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
+    private List<Role> roles;
 }

@@ -5,9 +5,13 @@
  */
 package cv.paradmigasolutions.controledevenda.controllers;
 
+import java.security.Principal;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -16,9 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
     
-    @GetMapping("/")
-    public String home(){
+    @Value("${spring.application.name}")
+    private String appName;
     
-        return "home/home";
+    @GetMapping("/")
+    public ModelAndView home(Principal principal ){
+    
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("home/home");
+        mv.addObject("appName", appName);
+        //Authentication auth = (Authentication) principal;
+        //System.out.println(auth.getAuthorities());
+        return mv;
     }
 }

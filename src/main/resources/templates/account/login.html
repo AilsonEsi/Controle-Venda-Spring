@@ -25,11 +25,11 @@
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form action="/login" method="POST">
+                    <form th:action="@{/login}" method="POST">
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                                <label for="inputEmail">Email</label>
+                                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Usuario" required="required" autofocus="autofocus">
+                                <label for="inputEmail">Usuario</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="remember-me">
+                                    <input type="checkbox" name="remember-me">
                                     Lembrar a senha
                                 </label>
                             </div>

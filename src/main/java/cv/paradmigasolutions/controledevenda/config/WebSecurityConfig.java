@@ -5,52 +5,47 @@
  */
 package cv.paradmigasolutions.controledevenda.config;
 
-import java.util.Arrays;
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  *
  * @author programmer
  */
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 @Configuration //add after
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
+    private UserDetailsService customUserDetailsService;
+ 
     @Autowired
-    private DataSource dataSource;
-
-    @Value("${spring.queries.users-query}")
-    private String userQuery;
-
-    @Value("${spring.queries.roles-query}")
-    private String roleQuery;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
+    private javax.sql.DataSource dataSource;
+ 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+ 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .jdbcAuthentication()
-                .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(roleQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
+         .userDetailsService(customUserDetailsService)
+         .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -58,23 +53,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf()
                 .and().cors().disable();
-
-        http
+            http
+                .headers()
+                .frameOptions().sameOrigin()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/login*").permitAll()
-                .antMatchers("/registration").permitAll()
+                    .antMatchers("/login*").permitAll()
+                    .antMatchers("/registration").permitAll()
                 .anyRequest()
                     .authenticated()
+                        .and().exceptionHandling().accessDeniedPage("/403")
                         .and().csrf().disable()
                 .formLogin()
-                    .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
-                    .usernameParameter("email").passwordParameter("password")
-                .and()
-                    .logout()
-                    .deleteCookies("remove")
+                    .loginPage("/login")
+                    .failureUrl("/login?error=true")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
+                    .and()
+                .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login")
-                    .invalidateHttpSession(true);
+                    .logoutSuccessUrl("/login?logout")
+                    .deleteCookies("my-remember-me-cookie")
+                       .permitAll()
+                       .and()
+                    .rememberMe()
+                     //.key("my-secure-key")
+                     .rememberMeCookieName("my-remember-me-cookie")
+                     .tokenRepository(persistentTokenRepository())
+                     .tokenValiditySeconds(24 * 60 * 60)
+                     .and()
+                   .exceptionHandling();
     }
 
     @Override
@@ -83,6 +91,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
                 .antMatchers("/css/**")
                 .antMatchers("/vendor/**");
+    }
+    
+     
+    PersistentTokenRepository persistentTokenRepository(){
+     JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+     tokenRepositoryImpl.setDataSource((javax.sql.DataSource) dataSource);
+     return tokenRepositoryImpl;
     }
 
     /*
