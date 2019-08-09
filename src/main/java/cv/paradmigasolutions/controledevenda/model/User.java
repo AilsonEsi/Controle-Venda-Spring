@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -23,7 +25,8 @@ import lombok.ToString;
  * @author programmer
  */
 @Entity(name = "usr_users")
-@Data
+@Getter
+@Setter
 @ToString
 public class User {
 

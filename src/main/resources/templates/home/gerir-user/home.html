@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/main.html}"
+      lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:text="${title}"></title>
+
+    </head>
+
+    <div layout:fragment="content">
+
+        <div id="form" class="my-4">
+            <form th:action="@{/gerir/utilizador/registrar}" method="POST" th:object="${user}">
+                <div class="row my-4">
+                    <div class="col">
+                        <input th:field="*{username}" type="text" class="form-control" placeholder="Usuario">
+                    </div>
+                    <div class="col">
+                        <input th:field="*{email}" type="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col">
+                        <input th:field="*{password}" type="password" class="form-control" placeholder="Senha">
+                    </div>
+                    <div class="col">
+                        <input id="confirmPassword" type="password" class="form-control" placeholder="Confirmar a senha">
+                    </div>
+                </div>
+                <div class="row my-4 mx-1">
+                    <div class="col">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input  value="ROLE_ADMIN" type="checkbox" class="custom-control-input" id="defaultInline1">
+                            <label class="custom-control-label" for="defaultInline1">ADMIN</label>
+                        </div>
+
+                        <!-- Default inline 2-->
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input value="ROLE_USER" type="checkbox" class="custom-control-input" id="defaultInline2">
+                            <label class="custom-control-label" for="defaultInline2">USER</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">
+                            <span class="fa fa-save"></span>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-striped table-hover" title="Usuarios cadastrados">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col">Accao</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}"> 
+                    <th scope="row"></th>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td>ADMIN , USER</td>
+                    <td>
+                        <button class="btn btn-primary fa fa-edit" title="editar a conta"></button>
+                        <button class="btn btn-danger fa fa-trash" title="eliminar a conta"></button>
+                        <button class="btn btn-danger fa fa-lock" title="bloquear a conta"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</html>

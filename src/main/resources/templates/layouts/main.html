@@ -93,10 +93,16 @@
 
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
-                <li sec:authorize="hasRole('USER')" class="nav-item active">
+                <li class="nav-item active">
                     <a class="nav-link" href="/">
                         <i class="fa fa-fw fa-tachometer"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item active">
+                    <a class="nav-link" href="/gerir/utilizador">
+                        <i class="fa fa-fw fa-users"></i>
+                        <span>Gerir Utilizador</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -157,7 +163,7 @@
 
                     </div>
 
-                    <div layout:fragment="content">
+                    <div class="mx-4" layout:fragment="content">
 
                     </div>
 
