@@ -5,6 +5,7 @@
  */
 package cv.paradmigasolutions.controledevenda.model;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,31 +16,44 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
  * @author programmer
  */
 @Entity(name = "usr_users")
-@Getter
-@Setter
+@Data
 @ToString
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_id")
     private Integer id;
-    @Column(name = "usr_username", nullable=false, length = 50)
+    @Column(name = "usr_username", nullable = false, length = 30, unique = true)
+    @NotNull(message = "Obrigatorio")
+    @NotEmpty(message = "Preenchimento obrigatorio")
+    @Length(max = 30, min = 20, message = "Minimo 20 e Maximo 30 caracteres")
     private String username;
-    @Column(name = "usr_email", nullable = false)
+    @Column(name = "usr_email", nullable = false, unique = true)
+    @Email(message = "Email invalido")
+    @NotNull(message = "Obrigatorio")
+    @NotEmpty(message = "Preenchimento obrigatorio")
+    @Length(max = 60, min = 30, message = "Minimo 30 e Maximo 60 caracteres")
     private String email;
     @Column(name = "usr_password", nullable = false)
+    @NotNull(message = "Obrigatorio")
+    @NotEmpty(message = "Preenchimento obrigatorio")
+    @Length(max = 60, min = 30, message = "Minimo 30 e Maximo 60 caracteres")
     private String password;
+    @NotNull(message = "Obrigatorio")
+    @NotEmpty(message = "Preenchimento obrigatorio")
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "usr_role",
