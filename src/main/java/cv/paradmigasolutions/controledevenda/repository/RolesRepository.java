@@ -5,15 +5,13 @@
  */
 package cv.paradmigasolutions.controledevenda.repository;
 
-import cv.paradmigasolutions.controledevenda.model.User;
-import java.util.Optional;
+import cv.paradmigasolutions.controledevenda.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author programmer
  */
-public interface UserRepository extends JpaRepository<User, Integer>{
-    Optional<User> findByEmail(String email);
-    Optional<User> findByUsername(String username);
+public interface RolesRepository extends JpaRepository<Role, Integer> {
+
 }

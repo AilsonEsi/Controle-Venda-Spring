@@ -33,14 +33,7 @@ public class UserService {
     }
     
     public void create(User user) {
-//        Role r1 = new Role();
-//        r1.setName("ROLE_ADMIN");
-//        Role r2 = new Role();
-//        r1.setName("ROLE_USER");
-//        user.setRoles(Arrays.asList(
-//                r1, r2
-//        ));
-        user.setRoles(null);
+     
         String pass = user.getPassword();
         user.setPassword(bCryptPasswordEncoder.encode(pass));
         userRepository.save(user);
