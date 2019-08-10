@@ -37,23 +37,23 @@ public class User implements Serializable{
     @Column(name = "usr_id")
     private Integer id;
     @Column(name = "usr_username", nullable = false, length = 30, unique = true)
-    @NotNull(message = "Obrigatorio")
-    @NotEmpty(message = "Preenchimento obrigatorio")
+    @NotNull(message = "Obrigatório")
+    @NotEmpty(message = "Preenchimento obrigatório")
     @Length(max = 30, min = 20, message = "Minimo 20 e Maximo 30 caracteres")
     private String username;
     @Column(name = "usr_email", nullable = false, unique = true)
-    @Email(message = "Email invalido")
-    @NotNull(message = "Obrigatorio")
-    @NotEmpty(message = "Preenchimento obrigatorio")
-    @Length(max = 60, min = 30, message = "Minimo 30 e Maximo 60 caracteres")
+    @Email(message = "Email inválido")
+    @NotNull(message = "Obrigatório")
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(max = 60, min = 30, message = "Mínimo 30 e Maximo 60 caracteres")
     private String email;
     @Column(name = "usr_password", nullable = false)
     @NotNull(message = "Obrigatorio")
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Length(max = 60, min = 30, message = "Minimo 30 e Maximo 60 caracteres")
+    @Length(max = 60, min = 30, message = "Mínimo 30 e Maximo 60 caracteres")
     private String password;
     @NotNull(message = "Obrigatorio")
-    @NotEmpty(message = "Preenchimento obrigatorio")
+    @NotEmpty(message = "Preenchimento obrigatório")
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "usr_role",
