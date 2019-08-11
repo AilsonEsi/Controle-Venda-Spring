@@ -39,11 +39,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember-me">
-                                    Lembrar a senha
-                                </label>
+                            <div class="custom-control custom-checkbox">
+                                <input id="remember-me" class="custom-control-input" type="checkbox" name="remember-me"/>
+                                <label for="remember-me" class="custom-control-label" > Lembrar a senha</label>
                             </div>
                         </div>
                         <input type="submit" value="Login" class="btn btn-primary btn-block">
@@ -52,9 +50,9 @@
                         <!--                        <a class="d-block small mt-3" href="/registar">Crie uma nova conta</a>-->
                         <a class="d-block small" href="forgot-password.html">Esqueceu a senha?</a>
                     </div>
-                    <div class="form-group mt-5" th:if="${param.error}">
-                        <div class="alert alert-danger text-center" role="alert">
-                            Email ou senha incorreta, tente novamente.
+                    <div class="form-group mt-3" th:if="${param.error}">
+                        <div class="alert alert-danger text-center p-1" role="alert">
+                            Usuario ou senha incorreta, tente novamente.
                         </div>
                     </div>
                 </div>
