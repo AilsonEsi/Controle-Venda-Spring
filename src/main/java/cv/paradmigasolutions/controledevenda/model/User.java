@@ -39,18 +39,18 @@ public class User implements Serializable{
     @Column(name = "usr_username", nullable = false, length = 30, unique = true)
     @NotNull(message = "Obrigatório")
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(max = 30, min = 20, message = "Minimo 20 e Maximo 30 caracteres")
+    @Length(min = 5, max = 30, message = "Minimo 5 e Maximo 30 caracteres")
     private String username;
     @Column(name = "usr_email", nullable = false, unique = true)
     @Email(message = "Email inválido")
     @NotNull(message = "Obrigatório")
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(max = 60, min = 30, message = "Mínimo 30 e Maximo 60 caracteres")
+    @Length(min = 15, max = 60, message = "Mínimo 15 e Maximo 60 caracteres")
     private String email;
     @Column(name = "usr_password", nullable = false)
     @NotNull(message = "Obrigatorio")
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Length(max = 60, min = 30, message = "Mínimo 30 e Maximo 60 caracteres")
+    @Length(min = 6, message = "Mínimo 6 caracteres")
     private String password;
     @NotNull(message = "Obrigatorio")
     @NotEmpty(message = "Preenchimento obrigatório")

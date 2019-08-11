@@ -18,21 +18,30 @@
     <div layout:fragment="content">
 
         <div id="form" class="my-4">
-            <form th:action="@{/gerir/utilizador/registrar}" method="POST" th:object="${user}">
+            <form th:action="@{/admin/gerir/utilizador/registrar}" method="POST" th:object="${user}">
                 <div class="row my-4">
                     <div class="col">
-                        <input th:field="*{username}" type="text" class="form-control" placeholder="Usuario">
+                        <input th:field="*{username}" type="text" class="form-control" placeholder="Usuario" th:maxlength="30">
+                        <div th:if="${#fields.hasErrors('username')}">
+                            <p th:errors="*{username}" class="text-danger"></p>
+                        </div>
                     </div>
                     <div class="col">
-                        <input th:field="*{email}" type="email" class="form-control" placeholder="Email">
+                        <input th:field="*{email}" type="text" class="form-control" placeholder="Email" th:maxlength="60">
+                        <div th:if="${#fields.hasErrors('email')}">
+                            <p th:errors="*{email}" class="text-danger"></p>
+                        </div>
                     </div>
                 </div>
                 <div class="row my-4">
                     <div class="col">
-                        <input id="pass" th:field="*{password}" type="password" class="form-control" placeholder="Senha">
+                        <input id="pass" th:field="*{password}" type="password" class="form-control" placeholder="Senha" th:maxlength="20">
+                        <div th:if="${#fields.hasErrors('password')}">
+                            <p th:errors="*{password}" class="text-danger"></p>
+                        </div>
                     </div>
                     <div class="col">
-                        <input id="confirmPass" type="password" class="form-control" placeholder="Confirmar a senha">
+                        <input id="confirmPass" type="password" class="form-control" name="conf_pass" placeholder="Confirmar a senha" th:maxlength="20">
                     </div>
                 </div>
                 <div class="row my-4">
@@ -48,9 +57,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('roles')}">
+                            <label th:errors="*{roles}" class="validation-message"></label>
+                        </div>
+                        <div th:if="${#fields.hasErrors('roles')}">
+                            <p th:errors="*{roles}" class="text-danger">.text-danger</p>
+                        </div>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary">
+                        <button th:onsubmit="validate()" class="btn btn-primary">
                             <span class="fa fa-save"></span>
                             Salvar
                         </button>
@@ -85,4 +100,5 @@
         </table>
     </div>
 
+    
 </html>
