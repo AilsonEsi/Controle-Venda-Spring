@@ -21,6 +21,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -30,7 +32,7 @@ import org.hibernate.validator.constraints.Length;
 @Entity(name = "usr_users")
 @Data
 @ToString
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +62,8 @@ public class User implements Serializable{
             joinColumns = {
                 @JoinColumn(name = "USER_ID", referencedColumnName = "USR_ID")},
             inverseJoinColumns = {
-                @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
+                @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")}
+    )
+    //@OnDelete(action = OnDeleteAction.CASCADE) // remove the relation in usr_roles
     private List<Role> roles;
 }
