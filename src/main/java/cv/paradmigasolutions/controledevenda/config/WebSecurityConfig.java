@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout")
+                    .deleteCookies("JSESSIONID")
                     .deleteCookies("my-remember-me-cookie")
                        .permitAll()
                        .and()
@@ -93,7 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
      
-    PersistentTokenRepository persistentTokenRepository(){
+     PersistentTokenRepository persistentTokenRepository(){
      JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
      tokenRepositoryImpl.setDataSource((javax.sql.DataSource) dataSource);
      return tokenRepositoryImpl;
