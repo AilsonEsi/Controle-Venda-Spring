@@ -16,7 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -28,41 +30,41 @@ import org.hibernate.validator.constraints.UniqueElements;
 @Entity(name = "fn_fornecedor")
 @Getter
 @Setter
-public class Fornecedor extends AudityModel<String> implements Serializable{
+public class Fornecedor extends AudityModel<String> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "fn_id")
     private Integer id;
-    
-    @NotNull(message = "NIF nao pode ser nulo")
+
+    @NotNull(message = "Obrigatório")
     @Column(name = "fn_nif", nullable = false, unique = true)
     private Long nif;
-    
+
     @NotNull(message = "NIB nao pode ser nulo")
     @Column(name = "fn_nib", nullable = false, unique = true)
     private Long nib;
 
-    @NotNull(message = "Nome nao pode ser nulo")
-    @NotBlank(message = "Nome e obrigatorio")
+    @NotNull(message = "Obrigatório")
+    @NotBlank(message = "Preenchimento obrigatorio")
     @Column(name = "fn_name", nullable = false, unique = true, length = 50)
     private String name;
 
     @Column(name = "fn_email", nullable = false, unique = true, length = 50)
-    @NotNull(message = "Email nao pode ser nulo")
-    @NotBlank(message = "Email e obrigatorio")
-    @Email(message = "Este e-mail e invalido")
+    @NotNull(message = "Obrigatório")
+    @NotBlank(message = "Preenchimento obrigatorio")
+    @Email(message = "Email invalido")
     private String email;
 
-    @Column(name = "fn_description", nullable = false, length = 50)
+    @Column(name = "fn_description", length = 50)
     private String description;
 
-    @NotNull(message = "Telefone nao pode ser nulo")
-    @NotBlank(message = "Telefone e obrigatorio")
+    @NotNull(message = "Obrigatório")
+    @NotBlank(message = "Preenchimento obrigatorio")
     @Column(name = "fn_phone", nullable = false, unique = true)
     private String phone;
 
-    @NotNull(message = "Codigo postal nao pode ser nulo")
+    @NotNull(message = "Obrigatório")
     @Column(name = "fn_zipCode", nullable = false)
     private Integer zip;
 
