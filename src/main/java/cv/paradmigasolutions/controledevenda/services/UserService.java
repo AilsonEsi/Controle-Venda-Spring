@@ -33,10 +33,14 @@ public class UserService {
     }
     
     public void create(User user) {
-     
+        
         String pass = user.getPassword();
         user.setPassword(bCryptPasswordEncoder.encode(pass));
         userRepository.save(user);
+    }
+    
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
     }
 
 //    public static void main(String[] args) {

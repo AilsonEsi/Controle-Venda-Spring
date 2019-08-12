@@ -96,9 +96,9 @@
                         </span>                            
                     </td>
                     <td>
-                        <button class="btn btn-primary fa fa-edit" title="editar a conta"></button>
-                        <button class="btn btn-danger fa fa-trash" title="eliminar a conta"></button>
-                        <button class="btn btn-danger fa fa-lock" title="bloquear a conta"></button>
+                        <a class="btn btn-primary fa fa-edit text-white" title="editar a conta"></a>
+                        <a th:href="@{/admin/gerir/utilizador/deletar/{id}(id=${user.id})}" class="btn btn-danger fa fa-trash text-white" title="eliminar a conta"></a>
+                        <a class="btn btn-danger fa fa-lock text-white" title="bloquear a conta"></a>
                     </td>
                 </tr>
             </tbody>

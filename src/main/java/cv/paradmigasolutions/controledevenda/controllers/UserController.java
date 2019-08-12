@@ -17,7 +17,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +46,6 @@ public class UserController {
         mv.addObject("users", userService.getAllUsers());
         mv.addObject("user", new User());
         mv.addObject("roles", roleService.getAllRoles());
-        mv.addObject("atr", "form-control");
         mv.setViewName("home/gerir-user/home");
         return mv;
     }
@@ -54,15 +55,27 @@ public class UserController {
     public ModelAndView create(@Valid User user, BindingResult result, Model model) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors()) {
+            model.addAttribute("title", title);
             mv.addObject("user", user);
             mv.addObject("roles", roleService.getAllRoles());
             mv.setViewName("home/gerir-user/home");
-            model.addAttribute("title", title);
         } else {
             mv.setViewName("redirect:/admin/gerir/utilizador");
             userService.create(user);
         }
         mv.addObject("users", userService.getAllUsers());
+        return mv;
+    }
+    @Secured("ROLE_ADMIN")
+    @GetMapping(value = "admin/gerir/utilizador/deletar/{id}")
+    public ModelAndView delete(@PathVariable("id") Integer id) {
+        ModelAndView mv = new ModelAndView();
+        userService.delete(id);
+        mv.addObject("title", title);
+        mv.addObject("users", userService.getAllUsers());
+        mv.addObject("user", new User());
+        mv.addObject("roles", roleService.getAllRoles());
+        mv.setViewName("redirect:/admin/gerir/utilizador");
         return mv;
     }
 }
