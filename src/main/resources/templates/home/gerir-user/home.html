@@ -85,8 +85,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="user : ${users}"> 
-                    <th scope="row"></th>
+                <tr th:each="user,i : ${users}"> 
+                    <th scope="row" th:text="${i.count}"></th>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.username}"></td>
                     <td>
