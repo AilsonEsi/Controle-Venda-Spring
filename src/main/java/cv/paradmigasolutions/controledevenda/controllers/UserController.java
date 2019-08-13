@@ -10,6 +10,7 @@ import cv.paradmigasolutions.controledevenda.model.User;
 import cv.paradmigasolutions.controledevenda.services.RoleService;
 import cv.paradmigasolutions.controledevenda.services.UserService;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class UserController {
         mv.addObject("users", userService.getAllUsers());
         return mv;
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping(value = "admin/gerir/utilizador/deletar/{id}")
     public ModelAndView delete(@PathVariable("id") Integer id) {
@@ -77,5 +79,18 @@ public class UserController {
         mv.addObject("roles", roleService.getAllRoles());
         mv.setViewName("redirect:/admin/gerir/utilizador");
         return mv;
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("admin/gerir/utilizador/{id}")
+    public String find(@PathVariable("id") Integer id, Model model) {
+        Optional<User> optional = userService.findById(id);
+        User presentUser = null;
+        if (optional.isPresent()) {
+            presentUser = (User) optional.get();
+            model.addAttribute("user", presentUser);
+        }
+
+        return "redirect:/admin/gerir/utilizador";
     }
 }

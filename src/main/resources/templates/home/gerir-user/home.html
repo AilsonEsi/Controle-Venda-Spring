@@ -13,6 +13,7 @@
         <meta name="author" content="">
 
         <title th:text="${title}"></title>
+
     </head>
 
     <div layout:fragment="content">
@@ -81,29 +82,34 @@
                     <th scope="col">E-mail</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Perfil</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Accao</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="user,i : ${users}"> 
+                <tr th:id="${user.id}" th:each="user,i : ${users}"> 
                     <th scope="row" th:text="${i.count}"></th>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.username}"></td>
                     <td>
-                        <span th:each="roles,iterStat : ${user.roles}">
+                        <span th:each="roles,i : ${user.roles}">
                             <span th:text="${roles.name}"></span>
-                            <th:block th:if="${!iterStat.last}">,</th:block>
+                            <th:block th:if="${!i.last}">,</th:block>
                         </span>                            
                     </td>
+                    <td>Ativo</td>
                     <td>
-                        <a class="btn btn-primary fa fa-edit text-white" title="editar a conta"></a>
-                        <a th:href="@{/admin/gerir/utilizador/deletar/{id}(id=${user.id})}" class="btn btn-danger fa fa-trash text-white" title="eliminar a conta"></a>
+                        <a th:attr="onclick = ${'openModalUpdate('+ user.id +')'}" href="#" class="btn btn-primary fa fa-edit text-white" title="editar a conta"></a>
+                        <a th:attr="onclick = ${'modalRemover('+ user.id +')'}" href="#" class="btn btn-danger fa fa-trash text-white" title="eliminar a conta"></a>
                         <a class="btn btn-danger fa fa-lock text-white" title="bloquear a conta"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Modals -->
+        <div th:include="fragments/modals/modal :: delete_user_conf"></div>
+        <div th:include="fragments/modals/modal :: update_user"></div>
+
     </div>
-
-
 </html>

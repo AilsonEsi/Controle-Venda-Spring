@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+
+        <!-- Delete User Modal-->
+        <div th:fragment="delete_user_conf">
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Tem certeza que deseja eliminar o usuario?
+                            <input id="modal-delete-user-id" type="hidden" name="id">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary text-white" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-danger text-white" id="deleteUser" href="#">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update User Modal-->
+        <div th:fragment="update_user">
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Alterar</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row my-4">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Usuario" th:maxlength="30">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Email" th:maxlength="60">
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col">
+                                    <input id="modal_pass" type="password" class="form-control" placeholder="Senha">
+                                </div>
+                                <div class="col">
+                                    <input id="modal_confirmPass" type="password" class="form-control" name="conf_pass" placeholder="Confirmar a senha">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group dropright">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Permissões
+                                    </button>
+                                    <div class="dropdown-menu ml-2 p-2">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox"/>
+                                            <label class="custom-control-label" ></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary text-white" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-danger text-white" id="deleteUser" href="#">Alterar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
