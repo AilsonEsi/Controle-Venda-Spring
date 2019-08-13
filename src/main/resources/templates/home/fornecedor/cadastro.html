@@ -21,49 +21,49 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">NIF</label>
-                    <input th:field="*{nif}" type="number" class="form-control" id="nif" placeholder="Identificação fiscal">
+                    <input th:field="*{nif}" type="text" class="form-control" id="nif" placeholder="Identificação fiscal" th:maxlength="50">
                     <div th:if="${#fields.hasErrors('nif')}">
                         <p th:errors="*{nif}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">NIB</label>
-                    <input th:field="*{nib}" type="number" class="form-control" id="nib" placeholder="Identificação bancaria">
+                    <input th:field="*{nib}" type="text" class="form-control" id="nib" placeholder="Identificação bancaria" th:maxlength="50">
                     <div th:if="${#fields.hasErrors('nib')}">
                         <p th:errors="*{nib}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Nome</label>
-                    <input th:field="*{name}" maxlength="50" type="text" class="form-control" id="name" placeholder="Nome">
+                    <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Nome"  th:maxlength="50" >
                     <div th:if="${#fields.hasErrors('name')}">
                         <p th:errors="*{name}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Email</label>
-                    <input th:field="*{email}" maxlength="50" type="text" class="form-control" id="email" placeholder="abc@exemplo.com">
-                    <div th:if="${#fields.hasErrors('nif')}">
-                        <p th:errors="*{nif}" class="text-danger"></p>
+                    <input th:field="*{email}" type="text" class="form-control" id="email" placeholder="abc@exemplo.com" th:maxlength="50" >
+                    <div th:if="${#fields.hasErrors('email')}">
+                        <p th:errors="*{email}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Descrição</label>
-                    <input th:field="*{description}" maxlength="50" type="text" class="form-control" id="description" placeholder="Descrição">
+                    <input th:field="*{description}" type="text" class="form-control" id="description" placeholder="Descrição" th:maxlength="40">
                     <div th:if="${#fields.hasErrors('description')}">
                         <p th:errors="*{description}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Telefone</label>
-                    <input th:field="*{phone}" type="text" class="form-control" id="phone" pattern="^\d*" placeholder="Telefone">
+                    <input th:field="*{phone}" type="text" class="form-control" id="phone" placeholder="Telefone" th:maxlength="20">
                     <div th:if="${#fields.hasErrors('phone')}">
                         <p th:errors="*{phone}" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Endereço</label>
-                    <input th:field="*{address}" maxlength="100" type="text" class="form-control" id="address" placeholder="1234 Main St">
+                    <input th:field="*{address}" type="text" class="form-control" id="address" placeholder="1234 Main St" th:maxlength="60">
                     <div th:if="${#fields.hasErrors('address')}">
                         <p th:errors="*{address}" class="text-danger"></p>
                     </div>
@@ -72,7 +72,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Cidade</label>
-                    <input th:field="*{city}" maxlength="50" type="text" class="form-control" id="city">
+                    <input th:field="*{city}" type="text" class="form-control" id="city" th:maxlength="50">
                     <div th:if="${#fields.hasErrors('city')}">
                         <p th:errors="*{city}" class="text-danger"></p>
                     </div>
@@ -89,7 +89,7 @@
             <div class="mb-3">
                 <label for="validationTextarea">Observação</label>
                 <!--is-valid-->
-                <textarea th:field="*{obs}" maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
+                <textarea th:field="*{obs}" th:maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
                 <div class="invalid-feedback">
                     Opcional
                 </div>
