@@ -30,10 +30,14 @@ public class Produto extends AudityModel<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pdt_id", nullable = false)
+    @Column(name = "pdt_id", nullable = false, unique = true)
     @NotNull
     private Integer id;
 
+    @Column(name = "pdt_cod", nullable = true, unique = true)
+    @Length(max = 50, message = "Maximo 50 caracteres")
+    private String cod;
+    
     @Column(name = "pdt_name", nullable = false, unique = true)
     @NotNull(message = "{not.null}")
     @NotBlank(message = "{not.blank}")
