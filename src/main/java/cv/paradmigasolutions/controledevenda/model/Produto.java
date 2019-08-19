@@ -37,6 +37,7 @@ public class Produto extends AudityModel<String> {
     @Column(name = "pdt_name", nullable = false, unique = true)
     @NotNull(message = "{not.null}")
     @NotBlank(message = "{not.blank}")
+    @Length(min = 1, max = 100, message = "Minimo 1 e Maximo 100 caracteres")
     private String name;
 
     @Column(name = "pdt_description", nullable = true)
@@ -54,7 +55,7 @@ public class Produto extends AudityModel<String> {
     @Column(name = "pdt_group", nullable = false)
     @NotNull(message = "{not.null}")
     @NotBlank(message = "{not.blank}")
-    @Length(max = 50, message = "Maximo 50 caracteres")
+    @Length(min = 1, max = 50, message = "Minimo 1 e Maximo 50 caracteres")
     private String group;
 
     @Column(name = "pdt_sub_group", nullable = true)
@@ -67,8 +68,6 @@ public class Produto extends AudityModel<String> {
     private String imgURL;
 
     @Column(name = "pdt_obs", nullable = true)
-    @NotNull(message = "{not.null}")
-    @NotBlank(message = "{not.blank}")
     @Length(max = 255, message = "Maximo 255 caracteres")
     private String obs;
 
