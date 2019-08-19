@@ -7,130 +7,80 @@ package cv.paradmigasolutions.controledevenda.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
  * @author programmer
  */
 @Entity(name = "pdt_produto")
+@Data
+@ToString
 public class Produto extends AudityModel<String> {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "pdt_id", nullable = false)
+    @NotNull
     private Integer id;
-    @Column(name = "pdt_nome", nullable = false, unique = true)
-    @NotNull(message = "Ob")
-    private String nome;
+
+    @Column(name = "pdt_name", nullable = false, unique = true)
+    @NotNull(message = "{not.null}")
+    @NotBlank(message = "{not.blank}")
+    private String name;
+
+    @Column(name = "pdt_description", nullable = true)
+    @Length(message = "Maximo 40 caracteres", max = 40)
     private String desc;
-    private Float precoCompra;
-    private Float precoVenda;
-    private String grupo;
-    private String subGrupo;
+
+    @Column(name = "pdt_buy_price", nullable = false)
+    @NotNull(message = "{not.null}")
+    private Float buyPrice;
+
+    @Column(name = "pdt_sell_price", nullable = false)
+    @NotNull(message = "{not.null}")
+    private Float sellPrice;
+
+    @Column(name = "pdt_group", nullable = false)
+    @NotNull(message = "{not.null}")
+    @NotBlank(message = "{not.blank}")
+    @Length(max = 50, message = "Maximo 50 caracteres")
+    private String group;
+
+    @Column(name = "pdt_sub_group", nullable = true)
+    @Length(max = 50, message = "Maximo 50 caracteres")
+    private String subGroup;
+
+    @Column(name = "pdt_img_url", nullable = false)
+    @NotNull(message = "{not.null}")
+    @NotBlank(message = "{not.blank}")
     private String imgURL;
+
+    @Column(name = "pdt_obs", nullable = true)
+    @NotNull(message = "{not.null}")
+    @NotBlank(message = "{not.blank}")
+    @Length(max = 255, message = "Maximo 255 caracteres")
     private String obs;
-    private Integer quantidade;
+
+    @Column(name = "pdt_quantity", nullable = false)
+    @NotNull(message = "{not.null}")
+    private Integer quantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fornecedor")
     private Fornecedor fornecedor;
-    private String fabricante;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Float getPrecoCompra() {
-        return precoCompra;
-    }
-
-    public void setPrecoCompra(Float precoCompra) {
-        this.precoCompra = precoCompra;
-    }
-
-    public Float getPrecoVenda() {
-        return precoVenda;
-    }
-
-    public void setPrecoVenda(Float precoVenda) {
-        this.precoVenda = precoVenda;
-    }
-
-    public String getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
-    }
-
-    public String getSubGrupo() {
-        return subGrupo;
-    }
-
-    public void setSubGrupo(String subGrupo) {
-        this.subGrupo = subGrupo;
-    }
-
-    public String getImgURL() {
-        return imgURL;
-    }
-
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
-    }
-
-    public String getObs() {
-        return obs;
-    }
-
-    public void setObs(String obs) {
-        this.obs = obs;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-    public String getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
-    
-    
+    @Column(name = "pdt_fabricator", nullable = true)
+    @Length(max = 100, message = "Maximo 100 caracteres")
+    private String fabricator;
 }
