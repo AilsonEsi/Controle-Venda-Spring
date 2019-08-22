@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/main.html}"
+      lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:text="${title}"></title>
+
+    </head>
+
+    <div layout:fragment="content">
+        <form  method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cod">Codigo</label>
+                    <input type="text" class="form-control" id="cod" placeholder="Codigo do produto" th:maxlength="50">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cod">Nome</label>
+                        <input type="text" class="form-control" id="cod" placeholder="Nome do produto" th:maxlength="100">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="desc">Descricao</label>
+                        <input type="text" class="form-control" id="desc" placeholder="Descreva o produto" th:maxlength="40">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="buyp">Preco compra</label>
+                        <input type="number" class="form-control" id="buyp">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="sellp">Preco venda</label>
+                        <input type="number" class="form-control" id="sellp">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="group">Grupo</label>
+                        <input type="text" class="form-control" id="group">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="sgroup">Sub-grupo</label>
+                        <input type="text" class="form-control" id="sgroup">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="fornecedor">Fornecedor</label>
+                        <select id="fornecedor" class="form-control">
+                            <option  th:each="forn : ${forncedores}" th:text="${forn.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="fabricator">Fabricante</label>
+                        <input type="text" class="form-control" id="fabricator">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="qtd">Quantidade</label>
+                        <input type="number" class="form-control" id="qtd">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="img">Imagem</label>
+                        <div id="img" class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile">
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="obs">Observação</label>
+                <!--is-valid-->
+                <textarea th:maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
+                <div class="invalid-feedback">
+                    Opcional
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Salvar
+            </button>
+        </form>
+    </div>
+
+</html>

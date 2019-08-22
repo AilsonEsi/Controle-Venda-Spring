@@ -111,9 +111,9 @@
                         <span>Cadastro</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <a class="dropdown-item" href="#">Produto</a>
+                        <a class="dropdown-item" th:href="@{/produto/cadastro}">Produto</a>
                         <a class="dropdown-item" href="#">Cliente</a>
-                        <a class="dropdown-item" href="/fornecedor/cadastro">Fornecedor</a>
+                        <a class="dropdown-item" th:href="@{/fornecedor/cadastro}">Fornecedor</a>
                         <a class="dropdown-item" href="#">Compra</a>
                         <a class="dropdown-item" href="#">Venda</a>
                     </div>
@@ -159,13 +159,9 @@
                     </ol>
 
                     <!-- Icon Cards-->
-                    <div class="row">
+                    <div class="row"></div>
 
-                    </div>
-
-                    <div class="mx-4" layout:fragment="content">
-
-                    </div>
+                    <div class="mx-5 my-4" layout:fragment="content"></div>
 
                 </div>
                 <!-- /.container-fluid -->
