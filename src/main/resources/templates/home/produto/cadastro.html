@@ -17,58 +17,100 @@
     </head>
 
     <div layout:fragment="content">
-        <form  method="POST">
+        <form th:action="@{/produto/cadastrar}" method="POST" th:object="${produto}">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cod">Codigo</label>
-                    <input type="text" class="form-control" id="cod" placeholder="Codigo do produto" th:maxlength="50">
+                    <input th:field="*{cod}" type="text" class="form-control" id="cod" placeholder="Codigo do produto" th:maxlength="50">
+                    <div th:if="${#fields.hasErrors('cod')}">
+                        <p th:errors="*{cod}" class="text-danger"></p>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="cod">Nome</label>
-                        <input type="text" class="form-control" id="cod" placeholder="Nome do produto" th:maxlength="100">
+                <div class="form-group col-md-6"></div>
+                <div class="form-group col-md-6">
+                    <label for="cod">Nome</label>
+                    <input th:field="*{name}" type="text" class="form-control" id="cod" placeholder="Nome do produto" th:maxlength="100">
+                    <div th:if="${#fields.hasErrors('name')}">
+                        <p th:errors="*{name}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="desc">Descricao</label>
-                        <input type="text" class="form-control" id="desc" placeholder="Descreva o produto" th:maxlength="40">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="desc">Descricao</label>
+                    <input th:field="*{desc}" type="text" class="form-control" id="desc" placeholder="Descreva o produto" th:maxlength="40">
+                    <div th:if="${#fields.hasErrors('desc')}">
+                        <p th:errors="*{desc}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="buyp">Preco compra</label>
-                        <input type="number" class="form-control" id="buyp">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="buyp">Preco compra</label>
+                    <input th:field="*{buyPrice}" type="number" class="form-control" id="buyp">
+                    <div th:if="${#fields.hasErrors('buyPrice')}">
+                        <p th:errors="*{buyPrice}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="sellp">Preco venda</label>
-                        <input type="number" class="form-control" id="sellp">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="sellp">Preco venda</label>
+                    <input th:field="*{sellPrice}" type="number" class="form-control" id="sellp">
+                    <div th:if="${#fields.hasErrors('sellPrice')}">
+                        <p th:errors="*{sellPrice}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="group">Grupo</label>
-                        <input type="text" class="form-control" id="group">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="group">Grupo</label>
+                    <input th:field="*{group}" type="text" class="form-control" id="group">
+                    <div th:if="${#fields.hasErrors('group')}">
+                        <p th:errors="*{group}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="sgroup">Sub-grupo</label>
-                        <input type="text" class="form-control" id="sgroup">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="sgroup">Sub-grupo</label>
+                    <input th:field="*{subGroup}" type="text" class="form-control" id="sgroup">
+                    <div th:if="${#fields.hasErrors('subGroup')}">
+                        <p th:errors="*{subGroup}" class="text-danger"></p>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="fornecedor">Fornecedor</label>
-                        <select id="fornecedor" class="form-control">
-                            <option  th:each="forn : ${forncedores}" th:text="${forn.name}"></option>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fornecedor">Fornecedor</label>
+                    <div class="input-group">
+                        <select id="fornecedor" class="form-control col" th:field="*{fornecedor}">
+                            <option th:value="${forn.id}" th:each="forn : ${forncedores}" th:text="${forn.name}"></option>
                         </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="fabricator">Fabricante</label>
-                        <input type="text" class="form-control" id="fabricator">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="qtd">Quantidade</label>
-                        <input type="number" class="form-control" id="qtd">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="img">Imagem</label>
-                        <div id="img" class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile">
-                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        <div class="input-group-prepend" title="adicionar novo fornecedor">
+                            <a th:href="@{/fornecedor/cadastro}" class="btn btn-primary text-white">
+                                <span class="fa fa-plus"></span>
+                            </a>
                         </div>
+                    </div>
+                    <div th:if="${#fields.hasErrors('fornecedor')}">
+                        <p th:errors="*{fornecedor}" class="text-danger"></p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fabricator">Fabricante</label>
+                    <input th:field="*{fabricator}" type="text" class="form-control" id="fabricator">
+                    <div th:if="${#fields.hasErrors('fabricator')}">
+                        <p th:errors="*{fabricator}" class="text-danger"></p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="qtd">Quantidade</label>
+                    <input th:field="*{quantity}" type="number" class="form-control" id="qtd">
+                    <div th:if="${#fields.hasErrors('quantity')}">
+                        <p th:errors="*{quantity}" class="text-danger"></p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="img">Imagem</label>
+                    <div id="img" class="custom-file">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" name="pimg">
+                        <label class="custom-file-label" for="validatedCustomFile">Selecione a imagem</label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="img">Nome imagem</label>
+                    <input th:field="*{imgURL}" type="text" class="form-control" id="img">
+                    <div th:if="${#fields.hasErrors('imgURL')}">
+                        <p th:errors="*{imgURL}" class="text-danger"></p>
                     </div>
                 </div>
             </div>
@@ -76,9 +118,12 @@
             <div class="mb-3">
                 <label for="obs">Observação</label>
                 <!--is-valid-->
-                <textarea th:maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
+                <textarea th:field="*{obs}" th:maxlength="255" class="form-control" id="obs" placeholder="Opcional"></textarea>
                 <div class="invalid-feedback">
                     Opcional
+                </div>
+                <div th:if="${#fields.hasErrors('obs')}">
+                    <p th:errors="*{obs}" class="text-danger"></p>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">

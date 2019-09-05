@@ -5,11 +5,18 @@
  */
 package cv.paradmigasolutions.controledevenda.controllers;
 
+import cv.paradmigasolutions.controledevenda.model.Fornecedor;
+import cv.paradmigasolutions.controledevenda.model.Produto;
 import cv.paradmigasolutions.controledevenda.services.FornecedorService;
+import cv.paradmigasolutions.controledevenda.services.ProdutoService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,15 +28,44 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/produto")
 public class ProdutoController {
 
+    private final String viewName = "/home/produto/cadastro";
+
     @Autowired
     private FornecedorService fornecedorService;
+    @Autowired
+    private ProdutoService produtoService;
 
-    @GetMapping(value = "/cadastro")
-    public ModelAndView cadastro() {
+    @GetMapping(value = "/cadastrar")
+    public ModelAndView createView(Model model) {
 
+        model.addAttribute("produto", new Produto());
+        return loadModelAndView(new ModelAndView(), viewName);
+    }
+
+    @PostMapping(value = "/cadastrar")
+    public ModelAndView create(@Valid Produto produto, BindingResult result, Model model) {
+
+        //System.err.println(produto.toString());
         ModelAndView mv = new ModelAndView();
-        mv.addObject("forncedores", fornecedorService.findAll(new Sort(Sort.Direction.DESC, "fn_id")));
-        mv.setViewName("/home/produto/cadastro");
+
+        if (result.hasErrors()) {
+
+            model.addAttribute(produto);
+            return loadModelAndView(mv, viewName);
+
+        } else {
+
+            produtoService.save(produto);
+            return loadModelAndView(mv, "redirect:/produto/cadastrar");
+        }
+    }
+
+    private ModelAndView loadModelAndView(ModelAndView mv, String viewName) {
+
+        mv.addObject("title", "Cadastro de produto");
+        mv.addObject("forncedores", fornecedorService.findAll());
+        mv.setViewName(viewName);
+
         return mv;
 
     }

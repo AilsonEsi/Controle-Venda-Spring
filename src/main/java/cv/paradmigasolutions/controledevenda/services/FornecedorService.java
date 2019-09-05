@@ -35,7 +35,7 @@ public class FornecedorService {
         fornecedorRepository.save(fornecedor);
     }
     
-    public List<Fornecedor> findAll(Sort sort){
+    public List<Fornecedor> findAll(){
     
         return fornecedorRepository.findAll();
     }

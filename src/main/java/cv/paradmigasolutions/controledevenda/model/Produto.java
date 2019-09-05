@@ -30,8 +30,7 @@ public class Produto extends AudityModel<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pdt_id", nullable = false, unique = true)
-    @NotNull
+    @Column(name = "pdt_id")
     private Integer id;
 
     @Column(name = "pdt_cod", nullable = true, unique = true)
@@ -82,7 +81,7 @@ public class Produto extends AudityModel<String> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fornecedor")
     private Fornecedor fornecedor;
-
+    
     @Column(name = "pdt_fabricator", nullable = true)
     @Length(max = 100, message = "Maximo 100 caracteres")
     private String fabricator;
