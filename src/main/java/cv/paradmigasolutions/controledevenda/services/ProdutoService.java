@@ -53,8 +53,9 @@ public class ProdutoService {
             }
 
             byte[] fileBytes = img.getBytes();
+            String[] type = img.getContentType().split("/"); //get extention of file
             File serverFile = new File(dir.getAbsolutePath()
-                    + File.separator + img.getOriginalFilename());
+                    + File.separator + System.currentTimeMillis() + "." + type[1]);
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
             stream.write(fileBytes);
