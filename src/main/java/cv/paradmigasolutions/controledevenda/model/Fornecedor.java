@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity(name = "fn_fornecedor")
 @Data
-@ToString
+@ToString(exclude = {"produts"})
 public class Fornecedor extends AudityModel<String> implements Serializable {
 
     @Id

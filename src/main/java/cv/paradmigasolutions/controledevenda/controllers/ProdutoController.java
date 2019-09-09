@@ -45,7 +45,6 @@ public class ProdutoController {
     @PostMapping(value = "/cadastrar")
     public ModelAndView create(@Valid Produto produto, BindingResult result, Model model) {
 
-        //System.err.println(produto.toString());
         ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {

@@ -5,6 +5,7 @@
  */
 package cv.paradmigasolutions.controledevenda.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +26,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity(name = "pdt_produto")
 @Data
-@ToString
-public class Produto extends AudityModel<String> {
+public class Produto extends AudityModel<String> implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,9 +65,7 @@ public class Produto extends AudityModel<String> {
     @Length(max = 50, message = "Maximo 50 caracteres")
     private String subGroup;
 
-    @Column(name = "pdt_img_url", nullable = false)
-    @NotNull(message = "{not.null}")
-    @NotBlank(message = "{not.blank}")
+    @Column(name = "pdt_img_url")
     private String imgURL;
 
     @Column(name = "pdt_obs", nullable = true)

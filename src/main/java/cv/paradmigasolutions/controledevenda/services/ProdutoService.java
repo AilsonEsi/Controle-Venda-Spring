@@ -31,7 +31,6 @@ public class ProdutoService {
         if (p.getUpdatedAt() == null) {
             p.setUpdatedAt(new Date());
         }
-        //p.setFornecedor(new Fornecedor());
         produtoRepository.save(p);
 
     }
