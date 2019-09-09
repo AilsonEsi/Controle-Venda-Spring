@@ -5,19 +5,21 @@
  */
 package cv.paradmigasolutions.controledevenda.controllers;
 
-import cv.paradmigasolutions.controledevenda.model.Fornecedor;
 import cv.paradmigasolutions.controledevenda.model.Produto;
 import cv.paradmigasolutions.controledevenda.services.FornecedorService;
 import cv.paradmigasolutions.controledevenda.services.ProdutoService;
+import java.util.Scanner;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -34,6 +36,8 @@ public class ProdutoController {
     private FornecedorService fornecedorService;
     @Autowired
     private ProdutoService produtoService;
+    @Autowired
+    ServletContext context;
 
     @GetMapping(value = "/cadastrar")
     public ModelAndView createView(Model model) {
@@ -43,9 +47,10 @@ public class ProdutoController {
     }
 
     @PostMapping(value = "/cadastrar")
-    public ModelAndView create(@Valid Produto produto, BindingResult result, Model model) {
+    public ModelAndView create(@RequestParam("file") MultipartFile img, @Valid Produto produto, BindingResult result, Model model) {
 
         ModelAndView mv = new ModelAndView();
+        produtoService.uploadImg(img, context);
 
         if (result.hasErrors()) {
 
@@ -54,7 +59,7 @@ public class ProdutoController {
 
         } else {
 
-            produtoService.save(produto);
+            //produtoService.save(produto);
             return loadModelAndView(mv, "redirect:/produto/cadastrar");
         }
     }

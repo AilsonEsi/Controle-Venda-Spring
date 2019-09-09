@@ -8,10 +8,18 @@ package cv.paradmigasolutions.controledevenda.services;
 import cv.paradmigasolutions.controledevenda.model.Fornecedor;
 import cv.paradmigasolutions.controledevenda.model.Produto;
 import cv.paradmigasolutions.controledevenda.repository.ProdutoRepository;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.Context;
 
 /**
  *
@@ -32,6 +40,29 @@ public class ProdutoService {
             p.setUpdatedAt(new Date());
         }
         produtoRepository.save(p);
+
+    }
+
+    public void uploadImg(MultipartFile img, ServletContext context) {
+
+        try {
+            final String PATH = "src/main/resources/static/uploads";
+            File dir = new File(PATH);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            byte[] fileBytes = img.getBytes();
+            File serverFile = new File(dir.getAbsolutePath()
+                    + File.separator + img.getOriginalFilename());
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(fileBytes);
+            stream.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ProdutoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 }

@@ -90,7 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/webjars/**","/css/**","/vendor/**");
+                .antMatchers("/webjars/**","/css/**","/vendor/**","static/**");
     }
     
      
